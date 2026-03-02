@@ -9,7 +9,6 @@ interface LoginResponse {
 }
 
 export const loginApi = async (phone: string, password: string): Promise<LoginResponse> => {
-    console.log(phone, password);
     const data = await apiFetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

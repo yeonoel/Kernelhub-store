@@ -15,6 +15,7 @@ import { OrdersListSkeleton } from "@/components/features/Order/OrderSkeleton";
 import { OrdersEmpty } from "@/components/features/Order/OrdersEmpty";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { OrderStatus } from "@/types/order-status";
+import { canBeUpdate, canChangeTo } from "@/components/features/Order/order-status-managment";
 
 export function Orders() {
     const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set());
@@ -127,26 +128,6 @@ export function Orders() {
         setExpandedOrders(newExpanded);
     };
 
-    /**
-     * Return true if the order can be updated to a new status, false otherwise.
-     * An order can be updated if its status is PENDING_PAYMENT, PAYMENT_FAILED, DELIVERED or CANCELED.
-     * @param {OrderStatus} current - the current status of the order
-     * @return {boolean} true if the order can be updated, false otherwise
-     */
-    const canBeUpdate = (current: OrderStatus) => {
-        if (current === OrderStatus.CONFIRMED_BY_CLIENT) return true;
-        if (current === OrderStatus.DELIVERED) return true;
-        if (current === OrderStatus.CANCELLED) return true;
-        return false;
-    };
-
-    const canChangeTo = (current: OrderStatus, newStatus: OrderStatus) => {
-        if (current === OrderStatus.CONFIRMED_BY_CLIENT && newStatus === OrderStatus.CONFIRMED_BY_SELLER) return true;
-        if (current === OrderStatus.CONFIRMED_BY_SELLER && newStatus === OrderStatus.CANCELLED) return true;
-        if (current === OrderStatus.CONFIRMED_BY_SELLER && newStatus === OrderStatus.DELIVERED) return true;
-        if (current === newStatus) return true;
-        return false;
-    };
 
 
     const handleWhatsApp = (phone: string, orderNumber: string) => {
@@ -397,7 +378,7 @@ export function Orders() {
                                                     <Badge className={`${statusConfig[order.status]?.color}`}>
                                                         {statusConfig[order.status]?.label}
                                                     </Badge>
-                                                    {!canBeUpdate(order.status) && (
+                                                    {canBeUpdate(order.status) && (
                                                         <Select
                                                             onValueChange={(newStatus: OrderStatus) =>
                                                                 handleStatusChangeRequest(
@@ -418,7 +399,7 @@ export function Orders() {
                                                                     <SelectItem
                                                                         key={status}
                                                                         value={status}
-                                                                        disabled={canChangeTo(order.status, status as OrderStatus)}
+                                                                        disabled={!canChangeTo(order.status, status as OrderStatus)}
                                                                     >
                                                                         {config.label}
                                                                     </SelectItem>

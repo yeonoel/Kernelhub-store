@@ -91,7 +91,6 @@ export const useOrder = () => {
     onMutate: async ({ orderId, status: newStatus }) => {
       await queryClient.cancelQueries({ queryKey: ["orders", slugStore, dateFilter] });
       const previousOrders = queryClient.getQueryData<OrdersResponseDto>(["orders", slugStore, dateFilter]);
-
       // Optimistic update
       if (previousOrders) {
         queryClient.setQueryData<OrdersResponseDto>(["orders", slugStore, dateFilter], {

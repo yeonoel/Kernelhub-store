@@ -16,9 +16,7 @@ export default function Login() {
     });
 
     const onSubmit = async (data: LoginFormData) => {
-        console.log(data.numero, "data.numero");
         const normalizedPhone = normalizePhone(data.numero);
-        console.log(normalizedPhone, "normalizedPhone");
         await login(normalizedPhone, data.password);
     };
 

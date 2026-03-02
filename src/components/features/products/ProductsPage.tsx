@@ -100,7 +100,6 @@ export function ProductsPage() {
     };
 
     const handleDeleteVariant = async () => {
-        console.log('selectedVariant', selectedVariant);
         if (!selectedVariant) return;
         await deleteVariant.mutate({ id: selectedVariant.id, productId: selectedVariant.productId });
         setIsDeleteVariantDialogOpen(false);

@@ -9,7 +9,6 @@ import { Toaster } from "sonner"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Overview from "./pages/overview/Overview"
 import Products from "./pages/products/Products"
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import RootRedirect from "./components/layout/RootRedirection/RootRedirect"
 
 const queryClient = new QueryClient();
@@ -35,7 +34,6 @@ function App() {
             </Routes>
           </AuthProvider>
         </ThemeProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
       </BrowserRouter>
     </QueryClientProvider>
 

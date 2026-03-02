@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { User, Phone, MapPin, DollarSign, Clock, ChevronDown, ChevronUp, MessageCircle, Package } from "lucide-react";
+import { User, Phone, MapPin, DollarSign, Clock, ChevronDown, ChevronUp, MessageCircle, Package, Edit2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,9 @@ import { OrderItemsList } from "./OrderItemsList";
 import { StatusCanBeChanged, statusConfig } from "./order-config";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { OrderStatus } from "@/types/order-status";
+import { canBeUpdate, canChangeTo } from "./order-status-managment";
+import { useStatusChangeConfirm } from "@/hooks/useStatusChangeConfrme";
+import { useOrder } from "@/hooks/useOrder";
 interface OrderCardProps {
     order: OrderDto;
     onStatusChange?: (orderId: string, newStatus: OrderStatus) => void;
@@ -18,31 +21,39 @@ interface OrderCardProps {
 
 export function OrderCard({ order, onStatusChange, onWhatsApp, isUpdating = false }: OrderCardProps) {
     const [isExpanded, setIsExpanded] = useState(false);
+    //Hook avec filtres hybrides (backend + frontend)
+    const {
+        orders,
+        totalCount,
+        filteredCount,
+        isLoading,
+        error,
+        refetch,
+        dateFilter,
+        setDateFilter,
+        statusFilter,
+        setStatusFilter,
+        searchQuery,
+        setSearchQuery,
+        activeFiltersCount,
+        resetFilters,
+        updateStatus,
+        isUpdatingStatus
+    } = useOrder();
 
-    /**
-     * Return true if the order can be updated to a new status, false otherwise.
-     * @param {OrderStatus} current - the current status of the order
-     * @return {boolean} true if the order can be updated, false otherwise
-     */
-    const canBeUpdate = (current: OrderStatus) => {
-        if (current === OrderStatus.CONFIRMED_BY_CLIENT) return true;
-        if (current === OrderStatus.DELIVERED) return true;
-        if (current === OrderStatus.CANCELLED) return true;
-        return false;
-    };
-
-    /**
-     * Return true if the order can be changed from the current status to the new status, false otherwise.
-     * @param {OrderStatus} current - the current status of the order
-     * @param {OrderStatus} newStatus - the new status of the order
-     * @return {boolean} true if the order can be changed, false otherwise
-     */
-    const canChangeTo = (current: OrderStatus, newStatus: OrderStatus) => {
-        if (current === OrderStatus.CONFIRMED_BY_CLIENT && newStatus === OrderStatus.CONFIRMED_BY_SELLER) return true;
-        if (current === OrderStatus.CONFIRMED_BY_SELLER && newStatus === OrderStatus.CANCELLED) return true;
-        if (current === OrderStatus.CONFIRMED_BY_SELLER && newStatus === OrderStatus.DELIVERED) return true;
-        if (current === newStatus) return true;
-        return false;
+    // Gestion de la confirmation de changement de statut
+    const {
+        requestStatusChange,
+    } = useStatusChangeConfirm((orderId, newStatus) => {
+        updateStatus({ orderId, status: newStatus });
+    });
+    const handleStatusChangeRequest = (
+        orderId: string,
+        orderNumber: string,
+        currentStatus: OrderStatus,
+        newStatus: OrderStatus
+    ) => {
+        requestStatusChange(orderId, orderNumber, currentStatus, newStatus);
     };
 
     return (
@@ -167,26 +178,29 @@ export function OrderCard({ order, onStatusChange, onWhatsApp, isUpdating = fals
                     {/* Actions */}
                     <div className="flex gap-2 pt-2 border-t">
                         {
-                            canBeUpdate(order.status) ? (
+                            canBeUpdate(order.status) && (
                                 <Select
-                                    onValueChange={(value: OrderStatus) => onStatusChange?.(order.id, value)}
-                                    disabled={false}
+                                    onValueChange={(newStatus: OrderStatus) =>
+                                        handleStatusChangeRequest(
+                                            order.id,
+                                            order.orderNumber,
+                                            order.status,
+                                            newStatus
+                                        )
+                                    }
+                                    disabled={isUpdatingStatus}
                                 >
-                                    <SelectTrigger className={`flex-1 ${statusConfig[order.status]?.color} border-0`}>
-                                        <SelectValue placeholder={statusConfig[order.status]?.label} />
-                                    </SelectTrigger>
-                                </Select>
-                            ) : (
-                                <Select
-                                    onValueChange={(value: OrderStatus) => onStatusChange?.(order.id, value)}
-                                    disabled={isUpdating}
-                                >
-                                    <SelectTrigger className={`flex-1 ${statusConfig[order.status]?.color} border-0`}>
-                                        <SelectValue placeholder="Modifier de statut" />
+                                    <SelectTrigger className="w-[140px] h-8 text-xs">
+                                        <Edit2 className="h-3 w-3 mr-1" />
+                                        <SelectValue placeholder="Modifier" />
                                     </SelectTrigger>
                                     <SelectContent>
                                         {Object.entries(StatusCanBeChanged).map(([status, config]) => (
-                                            <SelectItem key={status} value={status} disabled={canChangeTo(order.status, status as OrderStatus)}>
+                                            <SelectItem
+                                                key={status}
+                                                value={status}
+                                                disabled={!canChangeTo(order.status, status as OrderStatus)}
+                                            >
                                                 {config.label}
                                             </SelectItem>
                                         ))}
