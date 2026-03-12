@@ -23,20 +23,6 @@ export function OrderCard({ order, onStatusChange, onWhatsApp, isUpdating = fals
     const [isExpanded, setIsExpanded] = useState(false);
     //Hook avec filtres hybrides (backend + frontend)
     const {
-        orders,
-        totalCount,
-        filteredCount,
-        isLoading,
-        error,
-        refetch,
-        dateFilter,
-        setDateFilter,
-        statusFilter,
-        setStatusFilter,
-        searchQuery,
-        setSearchQuery,
-        activeFiltersCount,
-        resetFilters,
         updateStatus,
         isUpdatingStatus
     } = useOrder();
