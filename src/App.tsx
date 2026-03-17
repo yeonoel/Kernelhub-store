@@ -10,6 +10,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import Overview from "./pages/overview/Overview"
 import Products from "./pages/products/Products"
 import RootRedirect from "./components/layout/RootRedirection/RootRedirect"
+import RegisterPage from "./pages/register/registerPage"
+import LandingPage from "./pages/ladingPage/LadingPage"
 
 const queryClient = new QueryClient();
 function App() {
@@ -20,7 +22,9 @@ function App() {
           <AuthProvider>
             <Toaster position="top-right" toastOptions={{ duration: 3000, style: { background: '#333', color: "#fff" } }} />
             <Routes>
-              <Route path="/login" element={<Login />} />
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/connection" element={<Login />} />
+              <Route path="/inscription" element={<RegisterPage />} />
               <Route element={<PrivateRoute />}>
                 <Route path="/dashboard/:slugStore" element={<MainLayout />}>
                   <Route index element={<Overview />} />
@@ -29,7 +33,6 @@ function App() {
                   <Route path="produits" element={<Products />} />
                 </Route>
               </Route>
-              <Route path="/" element={<RootRedirect />} />
               <Route path="*" element={<RootRedirect />} />
             </Routes>
           </AuthProvider>

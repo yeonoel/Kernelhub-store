@@ -5,7 +5,7 @@ const RootRedirect = () => {
     const { isAuthenticated, user } = useAuth();
 
     if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/connection" replace />;
     }
 
     switch (user?.role) {
@@ -14,7 +14,7 @@ const RootRedirect = () => {
         case 'super_admin':
             return <Navigate to="/admin" replace />;
         default:
-            return <Navigate to="/login" replace />;
+            return <Navigate to="/connection" replace />;
     }
 };
 
