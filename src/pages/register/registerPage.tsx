@@ -6,7 +6,7 @@ import { useRegister } from "@/hooks/useRegister";
 import type { CreateStoreDto } from "@/types/createStore";
 import { isValidCIPhone, normalizePhone } from "@/lib/utils";
 import { Field } from "@/components/common/Field/Field";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 
 // Schemas
@@ -147,15 +147,12 @@ export default function RegisterPage() {
     const watchName = form1.watch("name") || "";
 
     const onStep1Submit = (data: Step1Fields) => {
-        console.log("[RegisterPage] Étape 1 - Soumission du formulaire");
         setStep1Data(data);
         setStep(2);
     };
 
     const onStep2Submit = (data: Step2Fields) => {
-        console.log("[RegisterPage] Étape 2 - Soumission du formulaire");
         if (!step1Data) {
-            console.error("[RegisterPage] Erreur : step1Data est manquant");
             return;
         }
         const dto: CreateStoreDto = {
@@ -166,28 +163,41 @@ export default function RegisterPage() {
             password: data.password,
             logo: logo ?? undefined,
         };
-        console.log("[RegisterPage] DTO préparé:", { name: dto.name, whatsappNumber: dto.whatsappNumber, vendorName: dto.vendorName, hasLogo: !!dto.logo });
-
         submitRegister(dto);
     };
 
     return (
-        <div style={S.page}>
-            <div style={S.card}>
-                <div style={{ marginBottom: 28 }}>
-                    <NavLink to="/" style={{ textDecoration: "none" }}>
-                        <span style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 22, color: "#050505", letterSpacing: "-0.5px" }}>Kernel</span>
+        <div className="min-h-screen bg-[#F9FAFB] flex items-center justify-center px-4 py-6 relative">
+
+            <Link
+                to="/"
+                className="hidden md:inline-flex absolute top-6 left-6 items-center gap-1.5 text-sm text-gray-400 hover:text-gray-900 transition-colors"
+            >
+                ← Accueil
+            </Link>
+
+            {/* Card */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm w-full max-w-md p-10">
+
+                {/* Header */}
+                <div className="mb-7">
+                    <NavLink to="/" className="no-underline inline-flex items-center gap-2 md:pointer-events-none">
+                        <span className="md:hidden text-gray-400 text-sm">←</span>
+                        <span style={{ fontFamily: "'DM Serif Display', Georgia, serif" }} className="text-[22px] text-[#050505] tracking-tight">
+                            Kernel
+                        </span>
                     </NavLink>
-                    <h1 style={{ fontSize: 20, fontWeight: 700, color: "#111827", margin: "16px 0 4px", letterSpacing: "-0.4px" }}>
+                    <h1 className="text-xl font-bold text-gray-900 mt-4 mb-1 tracking-tight">
                         {step === 1 ? "Créez votre boutique" : "Vos informations"}
                     </h1>
-                    <p style={{ fontSize: 14, color: "#6B7280", margin: 0 }}>
+                    <p className="text-sm text-gray-500">
                         {step === 1 ? "Configurez votre boutique en quelques secondes." : "Ces informations vous serviront à vous connecter."}
                     </p>
                 </div>
 
                 <StepIndicator current={step} />
 
+                {/* Step 1 */}
                 {step === 1 && (
                     <form onSubmit={form1.handleSubmit(onStep1Submit)} noValidate>
                         <LogoUpload value={logo} onChange={setLogo} storeName={watchName} />
@@ -215,6 +225,7 @@ export default function RegisterPage() {
                     </form>
                 )}
 
+                {/* Step 2 */}
                 {step === 2 && (
                     <form onSubmit={form2.handleSubmit(onStep2Submit)} noValidate>
                         <Field label="Votre prénom" S={S} error={form2.formState.errors.vendorName?.message}>
@@ -222,7 +233,6 @@ export default function RegisterPage() {
                                 onFocus={e => (e.target.style.borderColor = "#6B7280")}
                                 onBlur={e => (e.target.style.borderColor = form2.formState.errors.vendorName ? "#EF4444" : "#E2E2E2")} />
                         </Field>
-
                         <Field label="Mot de passe" S={S} error={form2.formState.errors.password?.message}>
                             <input {...form2.register("password")} type="password" placeholder="Minimum 6 caractères" style={S.input(!!form2.formState.errors.password)}
                                 onFocus={e => (e.target.style.borderColor = "#6B7280")}
@@ -233,11 +243,10 @@ export default function RegisterPage() {
                                 onFocus={e => (e.target.style.borderColor = "#6B7280")}
                                 onBlur={e => (e.target.style.borderColor = form2.formState.errors.confirmPassword ? "#EF4444" : "#E2E2E2")} />
                         </Field>
-                        <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
-                            <button type="button" onClick={() => setStep(1)} style={{
-                                flex: 1, padding: "13px", background: "#F3F4F6", color: "#374151",
-                                fontSize: 14, fontWeight: 600, borderRadius: 8, border: "1px solid #E5E7EB", cursor: "pointer",
-                            }}>← Retour</button>
+                        <div className="flex gap-2.5 mt-2">
+                            <button type="button" onClick={() => setStep(1)} className="flex-1 py-3 bg-gray-100 text-gray-700 text-sm font-semibold rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-200 transition-colors">
+                                ← Retour
+                            </button>
                             <button type="submit" disabled={isLoading} style={{ ...S.btn(isLoading), flex: 2, marginTop: 0 }}>
                                 {isLoading ? "Création en cours..." : "Créer ma boutique"}
                             </button>
@@ -245,16 +254,20 @@ export default function RegisterPage() {
                     </form>
                 )}
 
-                <p style={{ textAlign: "center", fontSize: 13, color: "#6B7280", marginTop: 24, marginBottom: 0 }}>
+                {/* Footer */}
+                <p className="text-center text-sm text-gray-500 mt-6 mb-0">
                     Déjà un compte ?{" "}
-                    <NavLink to="/connection" style={{ color: "#111827", fontWeight: 600, textDecoration: "none" }}>Se connecter</NavLink>
+                    <NavLink to="/connection" className="text-gray-900 font-semibold no-underline hover:underline">
+                        Se connecter
+                    </NavLink>
                 </p>
             </div>
+
             <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap');
-        * { box-sizing: border-box; }
-        input::placeholder, textarea::placeholder { color: #9CA3AF; }
-      `}</style>
+            @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap');
+            * { box-sizing: border-box; }
+            input::placeholder, textarea::placeholder { color: #9CA3AF; }
+        `}</style>
         </div>
     );
 }

@@ -6,6 +6,7 @@ export function Sidebar() {
     const { logout } = useAuth();
     const { user } = useAuth();
     const slugStore = user?.slugStore ?? "Panel Vendeur";
+    const logoStore = user?.logoStore ?? null;
     const handleLogout = () => {
         logout();
     }
@@ -17,7 +18,14 @@ export function Sidebar() {
             <div className="mb-4 border-b border-border pb-6">
                 <h1 className=" font-bold flex items-center gap-2">
                     <span className="w-7 h-7 bg-black text-white flex items-center justify-center rounded-full">
-                        <Star size={15} />
+                        {
+                            logoStore ? (
+                                <img src={logoStore} alt="logo" className="w-full h-full object-cover" />
+                            ) : (
+                                <Star size={15} />
+                            )
+
+                        }
                     </span>
                     {slugStore}
                 </h1>

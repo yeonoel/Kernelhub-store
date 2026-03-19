@@ -6,6 +6,8 @@ export interface AuthUser {
   lastName?: string;
   role?: UserRole;
   slugStore?: string;
+  logoStore?: string,
+
 }
 
 export interface AuthContextType {

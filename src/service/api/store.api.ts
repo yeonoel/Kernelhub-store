@@ -13,15 +13,19 @@ export const storesApi = {
             formData.append("password", dto.password);
             if (dto.description) formData.append("description", dto.description);
             if (dto.logo) formData.append("logo", dto.logo);
-            
-            console.log("[Store API] Envoi des données:", { name: dto.name, whatsappNumber: dto.whatsappNumber, vendorName: dto.vendorName, hasLogo: !!dto.logo });
-            
-            const { data } = await apiClient.post<CreateStoreResponse>("/stores/create", formData);
-            
-            console.log("[Store API] Réponse reçue:", data);
+
+            const { data } = await apiClient.post<CreateStoreResponse>("/stores/create", formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+
             return data;
         } catch (error) {
             console.error("[Store API] Erreur lors de la création:", error);
+            console.log(error);
             throw error;
         }
     },
