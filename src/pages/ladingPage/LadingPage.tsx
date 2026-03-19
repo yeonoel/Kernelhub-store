@@ -169,7 +169,7 @@ function Navbar() {
                             onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}>
                             Fonctionnalités
                         </a>
-                        <a href="/login" onClick={handleNav} style={{
+                        <NavLink to="/connection" onClick={handleNav} style={{
                             color: "rgba(255,255,255,0.7)", fontSize: 16, textDecoration: "none",
                             padding: "12px 0", borderBottom: "1px solid rgba(255,255,255,0.06)",
                             fontWeight: 400,
@@ -178,7 +178,7 @@ function Navbar() {
                             onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
                             onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}>
                             Connexion
-                        </a>
+                        </NavLink>
                         <NavLink to="/inscription" onClick={handleNav} style={{
                             display: "block", marginTop: 8,
                             background: "#fff", color: "#000",

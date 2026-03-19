@@ -6,6 +6,7 @@ import { useRegister } from "@/hooks/useRegister";
 import type { CreateStoreDto } from "@/types/createStore";
 import { isValidCIPhone, normalizePhone } from "@/lib/utils";
 import { Field } from "@/components/common/Field/Field";
+import { NavLink } from "react-router-dom";
 
 
 // Schemas
@@ -146,12 +147,17 @@ export default function RegisterPage() {
     const watchName = form1.watch("name") || "";
 
     const onStep1Submit = (data: Step1Fields) => {
+        console.log("[RegisterPage] Étape 1 - Soumission du formulaire");
         setStep1Data(data);
         setStep(2);
     };
 
     const onStep2Submit = (data: Step2Fields) => {
-        if (!step1Data) return;
+        console.log("[RegisterPage] Étape 2 - Soumission du formulaire");
+        if (!step1Data) {
+            console.error("[RegisterPage] Erreur : step1Data est manquant");
+            return;
+        }
         const dto: CreateStoreDto = {
             name: step1Data.name,
             whatsappNumber: normalizePhone(step1Data.whatsappNumber),
@@ -160,6 +166,8 @@ export default function RegisterPage() {
             password: data.password,
             logo: logo ?? undefined,
         };
+        console.log("[RegisterPage] DTO préparé:", { name: dto.name, whatsappNumber: dto.whatsappNumber, vendorName: dto.vendorName, hasLogo: !!dto.logo });
+
         submitRegister(dto);
     };
 
@@ -167,9 +175,9 @@ export default function RegisterPage() {
         <div style={S.page}>
             <div style={S.card}>
                 <div style={{ marginBottom: 28 }}>
-                    <a href="/" style={{ textDecoration: "none" }}>
+                    <NavLink to="/" style={{ textDecoration: "none" }}>
                         <span style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 22, color: "#050505", letterSpacing: "-0.5px" }}>Kernel</span>
-                    </a>
+                    </NavLink>
                     <h1 style={{ fontSize: 20, fontWeight: 700, color: "#111827", margin: "16px 0 4px", letterSpacing: "-0.4px" }}>
                         {step === 1 ? "Créez votre boutique" : "Vos informations"}
                     </h1>
@@ -239,7 +247,7 @@ export default function RegisterPage() {
 
                 <p style={{ textAlign: "center", fontSize: 13, color: "#6B7280", marginTop: 24, marginBottom: 0 }}>
                     Déjà un compte ?{" "}
-                    <a href="/login" style={{ color: "#111827", fontWeight: 600, textDecoration: "none" }}>Se connecter</a>
+                    <NavLink to="/connection" style={{ color: "#111827", fontWeight: 600, textDecoration: "none" }}>Se connecter</NavLink>
                 </p>
             </div>
             <style>{`

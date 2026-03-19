@@ -6,6 +6,7 @@ import { Button } from "../../components/common/Button/Button";
 import { Lock, Phone, Star } from "lucide-react";
 import { loginSchema, type LoginFormData } from "./login.schema";
 import { normalizePhone } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 export default function Login() {
     const { login, loading, error } = useAuth();
@@ -61,7 +62,12 @@ export default function Login() {
                         disabled={!isValid || isSubmitting}>
                         Se connecter
                     </Button>
-                    <p className="cursor-pointer text-sm text-gray-500 text-center curso"><small>Besoin d'aide ? Contactez le support</small></p>
+                    <p className="text-sm text-gray-500 text-center mt-2">
+                        Pas encore de boutique ?{" "}
+                        <Link to="/inscription" className="text-gray-900 font-semibold hover:underline">
+                            Créer ma boutique
+                        </Link>
+                    </p>
                 </form>
             </div>
         </div>
