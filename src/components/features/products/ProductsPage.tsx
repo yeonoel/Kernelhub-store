@@ -23,6 +23,8 @@ import { ProductSearch } from './ProductSearch';
 import { useProducts, useDeleteProduct, useDeleteVariant } from '@/hooks/useProducts';
 import type { Product, ProductVariant } from '@/types/product.types';
 import { formatPrice } from '@/lib/utils';
+import { CopyButton } from '@/components/common/copirUrl/CopieUrl';
+import { getStoreUrl, STOREFRONT_URL } from '@/config';
 
 export function ProductsPage() {
     // États pour les dialogs
@@ -43,6 +45,7 @@ export function ProductsPage() {
     const { data, isLoading, error } = useProducts();
     const deleteProduct = useDeleteProduct();
     const deleteVariant = useDeleteVariant();
+
 
     // Filtrage des produits par recherche (côté front)
     const filteredProducts = useMemo(() => {
@@ -429,6 +432,8 @@ export function ProductsPage() {
                                             >
                                                 <Trash2 className="w-4 h-4 text-red-600" />
                                             </Button>
+                                            <CopyButton text={`${STOREFRONT_URL}/${product.slug}`} />
+
                                         </div>
                                     </td>
                                 </tr>
@@ -443,9 +448,6 @@ export function ProductsPage() {
                                                     <table className="w-full">
                                                         <thead className="bg-gray-50 border-b border-gray-200">
                                                             <tr>
-                                                                <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
-                                                                    Couleur
-                                                                </th>
                                                                 <th className="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">
                                                                     Taille
                                                                 </th>
@@ -466,11 +468,7 @@ export function ProductsPage() {
                                                         <tbody className="divide-y divide-gray-200">
                                                             {product.variants.map((variant) => (
                                                                 <tr key={variant.id} className="hover:bg-gray-50">
-                                                                    <td className="px-4 py-3">
-                                                                        {variant.color && (
-                                                                            <Badge className="text-xs">{variant.color}</Badge>
-                                                                        )}
-                                                                    </td>
+
                                                                     <td className="px-4 py-3 text-sm text-gray-900">
                                                                         {variant.size}
                                                                     </td>

@@ -20,7 +20,7 @@ export function CreateVariantDialog({
     productName,
 }: CreateVariantDialogProps) {
     const [formData, setFormData] = useState({
-        color: '',
+        name: '',
         size: '',
         stockQuantity: '',
     });
@@ -30,10 +30,6 @@ export function CreateVariantDialog({
 
     const validateForm = () => {
         const newErrors: Record<string, string> = {};
-
-        if (!formData.color.trim()) {
-            newErrors.color = 'La couleur est requise';
-        }
 
         if (!formData.size.trim()) {
             newErrors.size = 'La taille est requise';
@@ -55,15 +51,14 @@ export function CreateVariantDialog({
         try {
             await createVariant.mutateAsync({
                 productId,
-                name: `${formData.color} - ${formData.size}`,
-                color: formData.color,
+                name: `${formData.size}`,
                 size: formData.size,
                 stockQuantity: parseInt(formData.stockQuantity),
             });
 
             // Réinitialiser le formulaire
             setFormData({
-                color: '',
+                name: '',
                 size: '',
                 stockQuantity: '',
             });
@@ -85,19 +80,6 @@ export function CreateVariantDialog({
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Couleur et Taille */}
                     <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <Label htmlFor="color">
-                                Couleur <span className="text-red-500">*</span>
-                            </Label>
-                            <Input
-                                id="color"
-                                value={formData.color}
-                                onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                                placeholder="Ex: Noir, Blanc..."
-                                className={errors.color ? 'border-red-500' : ''}
-                            />
-                            {errors.color && <p className="text-xs text-red-500 mt-1">{errors.color}</p>}
-                        </div>
 
                         <div>
                             <Label htmlFor="size">
@@ -136,7 +118,7 @@ export function CreateVariantDialog({
                     {/* Info SKU */}
                     <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                         <p className="text-xs text-blue-800">
-                            ℹ️ Le SKU sera généré automatiquement lors de la création
+                            Le SKU sera généré automatiquement lors de la création
                         </p>
                     </div>
 

@@ -6,6 +6,7 @@ export const productsApi = {
   // Produits
   getAll: async (params?: { page?: number; limit?: number; search?: string }, slugStore?: string) => {
     const { data } = await apiClient.get<ApiResponse<Product[]>>(`/${slugStore}/products`, { params });
+    console.log(data);
     return data; // ✅ Retourne { success, data, meta }
   },
 
@@ -73,6 +74,7 @@ export const productsApi = {
   // Variantes
   addVariant: async (variant: CreateVariantDto, slugStore?: string) => {
     const { productId, ...variantData } = variant;
+    console.log(variantData, "variantData");
     const { data } = await apiClient.post<ApiResponse<ProductVariant>>(
       `/${slugStore}/product-variants/${productId}/variants`,
       variantData

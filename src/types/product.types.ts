@@ -89,9 +89,9 @@ export interface CreateProductDto {
 
 export interface CreateVariantDto {
   productId: string;
-  name: string;
+  name?: string;
   size: string;
-  color: string;
+  color?: string;
   stockQuantity: number;
 }
 

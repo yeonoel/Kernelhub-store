@@ -18,7 +18,6 @@ interface EditVariantDialogProps {
 
 export function EditVariantDialog({ open, onOpenChange, variant, productName, productId }: EditVariantDialogProps) {
     const [formData, setFormData] = useState({
-        color: '',
         size: '',
         stockQuantity: '',
     });
@@ -29,7 +28,6 @@ export function EditVariantDialog({ open, onOpenChange, variant, productName, pr
     useEffect(() => {
         if (variant) {
             setFormData({
-                color: variant.color || '',
                 size: variant.size || '',
                 stockQuantity: variant.stockQuantity.toString(),
             });
@@ -38,10 +36,6 @@ export function EditVariantDialog({ open, onOpenChange, variant, productName, pr
 
     const validateForm = () => {
         const newErrors: Record<string, string> = {};
-
-        if (!formData.color.trim()) {
-            newErrors.color = 'La couleur est requise';
-        }
 
         if (!formData.size.trim()) {
             newErrors.size = 'La taille est requise';
@@ -65,8 +59,7 @@ export function EditVariantDialog({ open, onOpenChange, variant, productName, pr
                 id: variant.id,
                 productId,
                 data: {
-                    name: `${formData.color} - ${formData.size}`,
-                    color: formData.color,
+                    name: ` ${formData.size}`,
                     size: formData.size,
                     stockQuantity: parseInt(formData.stockQuantity),
                 },
@@ -97,18 +90,7 @@ export function EditVariantDialog({ open, onOpenChange, variant, productName, pr
                 <form onSubmit={handleSubmit} className="space-y-4">
                     {/* Couleur et Taille */}
                     <div className="grid grid-cols-2 gap-4">
-                        <div>
-                            <Label htmlFor="edit-color">
-                                Couleur <span className="text-red-500">*</span>
-                            </Label>
-                            <Input
-                                id="edit-color"
-                                value={formData.color}
-                                onChange={(e) => setFormData({ ...formData, color: e.target.value })}
-                                className={errors.color ? 'border-red-500' : ''}
-                            />
-                            {errors.color && <p className="text-xs text-red-500 mt-1">{errors.color}</p>}
-                        </div>
+
 
                         <div>
                             <Label htmlFor="edit-size">
