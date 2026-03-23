@@ -95,7 +95,6 @@ export default function StorePage() {
     const [editing, setEditing] = useState(false);
     const [logo, setLogo] = useState<File | null>(null);
     const inputRef = useRef<HTMLInputElement>(null);
-
     const storefrontUrl = getStoreUrl(store?.slug ?? "");
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormFields>({
