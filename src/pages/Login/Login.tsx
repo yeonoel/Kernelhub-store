@@ -23,24 +23,29 @@ export default function Login() {
 
     return (
         <>
+            <div className="min-h-screen bg-gradient-cinematic flex flex-col items-center justify-center px-4 py-8 relative">
 
-            <div className="min-h-screen bg-gradient-cinematic flex items-center justify-center">
                 <Link
                     to="/"
-                    className="absolute top-6 left-6 inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
+                    className="hidden md:inline-flex absolute top-6 left-6 items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
                 >
                     ← Accueil
                 </Link>
-                <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow">
-                    <div className="flex flex-col items-center justify-center space-y-5">
-                        <span className="w-14 h-14 bg-black text-white flex items-center justify-center  rounded-full">
+
+                <div className="w-full max-w-md bg-white p-6 sm:p-8 rounded-2xl shadow">
+                    <div className="flex flex-col items-center justify-center space-y-3 mb-6">
+                        {/* Flèche mobile → logo cliquable */}
+                        <Link to="/" className="md:hidden self-start inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-gray-700 transition-colors mb-2">
+                            ← Accueil
+                        </Link>
+                        <span className="w-14 h-14 bg-black text-white flex items-center justify-center rounded-full">
                             <Star size={15} />
                         </span>
-                        <h1 className="text-2xl font-bold mb-6 text-center ">Panneau admin</h1>
-                        <p className="text-sm text-gray-500 text-center ">Connectez-vous pour accéder au dashboard</p>
+                        <h1 className="text-xl sm:text-2xl font-bold text-center">Panneau admin</h1>
+                        <p className="text-sm text-gray-500 text-center">Connectez-vous pour accéder au dashboard</p>
                     </div>
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                         <Input
                             label="Numéro"
                             type="tel"
@@ -49,7 +54,6 @@ export default function Login() {
                             {...register("numero")}
                             error={errors.numero?.message}
                         />
-
                         <Input
                             label="Mot de passe"
                             type="password"
@@ -58,11 +62,7 @@ export default function Login() {
                             {...register("password")}
                             error={errors.password?.message}
                         />
-
-                        {error && (
-                            <p className="text-sm text-red-500 text-center">{error}</p>
-                        )}
-
+                        {error && <p className="text-sm text-red-500 text-center">{error}</p>}
                         <Button
                             type="submit"
                             className="w-full"
