@@ -206,8 +206,8 @@ export default function RegisterPage() {
                                 onFocus={e => (e.target.style.borderColor = "#6B7280")}
                                 onBlur={e => (e.target.style.borderColor = form1.formState.errors.name ? "#EF4444" : "#E2E2E2")} />
                         </Field>
-                        <Field label="Numéro WhatsApp (identifiant de connexion)" S={S} error={form1.formState.errors.whatsappNumber?.message} hint="Formats acceptés : 0747492156 · 2250747492156 · +2250747492156">
-                            <input {...form1.register("whatsappNumber")} placeholder="Ex: 0747492156" inputMode="numeric" style={S.input(!!form1.formState.errors.whatsappNumber)}
+                        <Field label="Numéro WhatsApp (identifiant de connexion)" S={S} error={form1.formState.errors.whatsappNumber?.message} hint="Formats acceptés : 0700000000 · 2250700000000 · +2250700000000">
+                            <input {...form1.register("whatsappNumber")} placeholder="Ex: 0700000000" inputMode="numeric" style={S.input(!!form1.formState.errors.whatsappNumber)}
                                 onFocus={e => (e.target.style.borderColor = "#6B7280")}
                                 onBlur={e => (e.target.style.borderColor = form1.formState.errors.whatsappNumber ? "#EF4444" : "#E2E2E2")} />
                         </Field>
