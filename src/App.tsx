@@ -13,6 +13,8 @@ import RootRedirect from "./components/layout/RootRedirection/RootRedirect"
 import RegisterPage from "./pages/register/registerPage"
 import LandingPage from "./pages/ladingPage/LadingPage"
 import StorePage from "./pages/storePage/storePage"
+import CGU from "./pages/CGU/cgu"
+import Confidentialite from "./pages/Confidentialité/Confidentialite"
 
 const queryClient = new QueryClient();
 function App() {
@@ -24,6 +26,8 @@ function App() {
             <Toaster position="top-right" toastOptions={{ duration: 3000, style: { background: '#333', color: "#fff" } }} />
             <Routes>
               <Route path="/" element={<LandingPage />} />
+              <Route path="/cgu" element={<CGU />} />
+              <Route path="/confidentialite" element={<Confidentialite />} />
               <Route path="/connection" element={<Login />} />
               <Route path="/inscription" element={<RegisterPage />} />
               <Route element={<PrivateRoute />}>

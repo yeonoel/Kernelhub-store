@@ -23,18 +23,14 @@ interface Testimonial {
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const FEATURES: Feature[] = [
-    { icon: "◈", title: "Boutique en 2 minutes", desc: "Configurez votre vitrine, ajoutez vos produits et commencez à vendre immédiatement." },
-    { icon: "◉", title: "Commandes WhatsApp", desc: "Vos clients passent commande directement via WhatsApp. Zéro friction, taux de conversion maximal." },
-    { icon: "◎", title: "Dashboard complet", desc: "Suivez vos ventes, gérez vos stocks et analysez vos performances en temps réel." },
-    { icon: "⬡", title: "Multi-boutiques", desc: "Gérez plusieurs boutiques depuis un seul compte. Idéal pour les revendeurs et agences." },
-    { icon: "◆", title: "Paiements sécurisés", desc: "Acceptez les paiements cash ou en ligne. Stripe intégré nativement." },
-    { icon: "◇", title: "Coupons & promotions", desc: "Créez des codes promo, des réductions par catégorie et des offres limitées dans le temps." },
+    { icon: "◈", title: "Boutique en 1 minutes", desc: "Configurez votre vitrine, ajoutez vos produits et commencez à vendre immédiatement." },
+    { icon: "◉", title: "Commandes via WhatsApp", desc: "Vos clients commandent sur votre boutique et confirment en un message WhatsApp. Simple et rapide." }, { icon: "◎", title: "Dashboard complet", desc: "Suivez vos ventes, gérez vos stocks et analysez vos performances en temps réel." },
 ];
 
 const STEPS: Step[] = [
-    { num: "01", title: "Créez votre compte", desc: "Inscription en moins de 60 secondes. Aucune carte bancaire requise." },
-    { num: "02", title: "Configurez votre boutique", desc: "Logo, couleurs, produits — votre boutique est prête en quelques clics." },
-    { num: "03", title: "Partagez & vendez", desc: "Diffusez votre lien boutique. Vos clients commandent, vous encaissez." },
+    { num: "01", title: "Créez votre compte", desc: "Inscription en moins de 30 secondes. Aucune carte bancaire requise." },
+    { num: "02", title: "Configurez votre boutique", desc: "Logo, Nom, produits — votre boutique est prête en quelques clics." },
+    { num: "03", title: "Partagez & vendez", desc: "Diffusez votre lien boutique. Vos clients commandent, vous livrez, vous encaissez." },
 ];
 
 const TESTIMONIALS: Testimonial[] = [
@@ -348,7 +344,11 @@ function Hero() {
                     paddingTop: 40, borderTop: "1px solid rgba(255,255,255,0.07)",
                     opacity: mounted ? 1 : 0, transition: "opacity 0.7s ease 0.5s",
                 }}>
-                    {[["500+", "Boutiques actives"], ["12k+", "Commandes traitées"], ["98%", "Satisfaction client"]].map(([n, l]) => (
+                    {[
+                        ["1min", "Pour créer ta boutique"],
+                        ["7j/7", "Support disponible"],
+                        ["0€", "Pour commencer"],
+                    ].map(([n, l]) => (
                         <div key={l} style={{ textAlign: "center" }}>
                             <div style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 32, color: "#fff", letterSpacing: "-1px" }}>{n}</div>
                             <div style={{ fontSize: 12, color: "rgba(255,255,255,0.35)", marginTop: 4, letterSpacing: "0.04em" }}>{l}</div>
@@ -458,45 +458,28 @@ function Testimonials() {
     const { ref, visible } = useIntersection();
     return (
         <section ref={ref} style={{ background: "#fff", padding: "100px 32px" }}>
-            <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+            <div style={{ maxWidth: 700, margin: "0 auto", textAlign: "center" }}>
                 <div style={{
-                    textAlign: "center", marginBottom: 72,
                     opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(24px)",
                     transition: "opacity 0.6s ease, transform 0.6s ease",
                 }}>
-                    <p style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 16 }}>Témoignages</p>
-                    <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: "clamp(32px, 4vw, 52px)", color: "#050505", letterSpacing: "-1.5px", lineHeight: 1.1, margin: 0 }}>
-                        Ils ont lancé leur boutique
+                    <p style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9CA3AF", marginBottom: 16 }}>
+                        Accès anticipé
+                    </p>
+                    <h2 style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: "clamp(32px, 4vw, 52px)", color: "#050505", letterSpacing: "-1.5px", lineHeight: 1.1, margin: "0 0 24px" }}>
+                        Sois parmi les premiers
                     </h2>
-                </div>
-
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 24 }}>
-                    {TESTIMONIALS.map((t, i) => (
-                        <div key={t.name} style={{
-                            background: "#F9FAFB", borderRadius: 12, padding: "32px",
-                            border: "1px solid #F3F4F6",
-                            opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(24px)",
-                            transition: `opacity 0.5s ease ${i * 0.12}s, transform 0.5s ease ${i * 0.12}s`,
-                        }}>
-                            <p style={{ fontSize: 15, color: "#374151", lineHeight: 1.7, margin: "0 0 28px", fontStyle: "italic" }}>
-                                "{t.quote}"
-                            </p>
-                            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                                <div style={{
-                                    width: 38, height: 38, borderRadius: "50%",
-                                    background: "#050505", color: "#fff",
-                                    display: "flex", alignItems: "center", justifyContent: "center",
-                                    fontSize: 14, fontWeight: 700, flexShrink: 0,
-                                }}>
-                                    {t.avatar}
-                                </div>
-                                <div>
-                                    <div style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>{t.name}</div>
-                                    <div style={{ fontSize: 12, color: "#9CA3AF", marginTop: 2 }}>{t.role}</div>
-                                </div>
+                    <p style={{ fontSize: 16, color: "#6B7280", lineHeight: 1.7, margin: "0 0 48px" }}>
+                        Crée ta boutique maintenant et fais partie des pionniers.
+                    </p>
+                    <div style={{ display: "flex", gap: 32, justifyContent: "center", flexWrap: "wrap" }}>
+                        {[["Gratuit", "Actuellement"], ["1 min", "pour créer ta boutique"], ["7j/7", "support disponible"]].map(([n, l]) => (
+                            <div key={l}>
+                                <div style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 32, color: "#050505", letterSpacing: "-1px" }}>{n}</div>
+                                <div style={{ fontSize: 12, color: "#9CA3AF", marginTop: 4, letterSpacing: "0.04em" }}>{l}</div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
@@ -526,7 +509,7 @@ function CTA() {
                     Prêt à lancer<br />votre boutique ?
                 </h2>
                 <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 16, lineHeight: 1.7, margin: "0 0 48px" }}>
-                    Rejoignez des centaines de vendeurs qui font confiance à Kernel pour développer leur activité.
+                    Les premières boutiques se lancent maintenant. Rejoins-les et développe ton activité dès aujourd'hui.
                 </p>
                 <a href="/register" style={{
                     display: "inline-block",
@@ -539,12 +522,14 @@ function CTA() {
                     Commencer gratuitement →
                 </a>
                 <p style={{ color: "rgba(255,255,255,0.2)", fontSize: 12, marginTop: 20, letterSpacing: "0.04em" }}>
-                    Aucune carte bancaire requise · Gratuit pour démarrer
+                    Aucune carte bancaire requise · Gratuit actuellement
                 </p>
             </div>
         </section>
     );
 }
+
+import { Link } from "react-router-dom";
 
 function Footer() {
     return (
@@ -552,13 +537,27 @@ function Footer() {
             <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 16 }}>
                 <span style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontSize: 20, color: "#fff" }}>Kernel</span>
                 <div style={{ display: "flex", gap: 32 }}>
-                    {["Confidentialité", "CGU", "Contact"].map(l => (
-                        <a key={l} href="#" style={{ color: "rgba(255,255,255,0.3)", fontSize: 13, textDecoration: "none", transition: "color 0.2s" }}
-                            onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
-                            onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}>
-                            {l}
-                        </a>
-                    ))}
+                    {[
+                        { label: "Confidentialité", href: "/confidentialite" },
+                        { label: "CGU", href: "/cgu" },
+                        { label: "Contact", href: "mailto:boutiqueebookinfo@gmail.com" },
+                    ].map(({ label, href }) =>
+                        href.startsWith("mailto") ? (
+                            <a key={label} href={href}
+                                style={{ color: "rgba(255,255,255,0.3)", fontSize: 13, textDecoration: "none", transition: "color 0.2s" }}
+                                onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
+                                onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}>
+                                {label}
+                            </a>
+                        ) : (
+                            <Link key={label} to={href}
+                                style={{ color: "rgba(255,255,255,0.3)", fontSize: 13, textDecoration: "none", transition: "color 0.2s" }}
+                                onMouseEnter={e => (e.currentTarget.style.color = "rgba(255,255,255,0.7)")}
+                                onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.3)")}>
+                                {label}
+                            </Link>
+                        )
+                    )}
                 </div>
                 <span style={{ color: "rgba(255,255,255,0.2)", fontSize: 12 }}>© 2026 Kernel</span>
             </div>
