@@ -15,7 +15,7 @@ import { useOrder } from "@/hooks/useOrder";
 interface OrderCardProps {
     order: OrderDto;
     onStatusChange?: (orderId: string, newStatus: OrderStatus) => void;
-    onWhatsApp?: (phone: string, orderNumber: string) => void;
+    onWhatsApp?: (phone: string, orderNumber: string, items: any[]) => void;
     isUpdating?: boolean
 }
 
@@ -197,7 +197,7 @@ export function OrderCard({ order, onStatusChange, onWhatsApp, isUpdating = fals
                         <Button
                             size="sm"
                             className="gap-2 bg-green-600 hover:bg-green-700 text-white"
-                            onClick={() => onWhatsApp?.(order.user.phone, order.orderNumber)}
+                            onClick={() => onWhatsApp?.(order.user.phone, order.orderNumber, order.items)}
                         >
                             <MessageCircle className="w-4 h-4" />
                             <span className="hidden sm:inline">WhatsApp</span>

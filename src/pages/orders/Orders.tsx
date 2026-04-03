@@ -16,6 +16,7 @@ import { OrdersEmpty } from "@/components/features/Order/OrdersEmpty";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { OrderStatus } from "@/types/order-status";
 import { canBeUpdate, canChangeTo } from "@/components/features/Order/order-status-managment";
+import type { OrderItem } from "@/types";
 
 export function Orders() {
     const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set());
@@ -128,10 +129,9 @@ export function Orders() {
         setExpandedOrders(newExpanded);
     };
 
-
-
-    const handleWhatsApp = (phone: string, orderNumber: string) => {
-        const message = `Bonjour, je vous contacte concernant votre commande ${orderNumber}.`;
+    const handleWhatsApp = (phone: string, orderNumber: string, items: any[]) => {
+        const itemsList = items.map(item => `- ${item.productName} x${item.quantity}`).join('\n');
+        const message = `Bonjour, je vous contacte concernant votre commande ${orderNumber}.\n\nArticles:\n${itemsList}`;
         const whatsappUrl = `https://wa.me/${phone.replace(/\s/g, '')}?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
     };
@@ -417,7 +417,7 @@ export function Orders() {
                                                         variant="ghost"
                                                         size="sm"
                                                         className="gap-2 text-green-600 hover:text-green-700 hover:bg-green-50"
-                                                        onClick={() => handleWhatsApp(order.user.phone, order.orderNumber)}
+                                                        onClick={() => handleWhatsApp(order.user.phone, order.orderNumber, order.items)}
                                                     >
                                                         <MessageCircle className="w-4 h-4" />
                                                         WhatsApp
