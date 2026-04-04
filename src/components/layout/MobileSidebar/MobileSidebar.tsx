@@ -45,21 +45,21 @@ export function MobileSidebar({ open, onClose }: MobileSidebarProps) {
                     <span onClick={onClose}><ArrowLeftToLine size={16} strokeWidth={1.75} /></span>
                 </div>
                 <nav className="space-y-2">
-                    <NavLink to={`/dashboard/${slugStore}`} className={linkClass}>
+                    <NavLink to={`/dashboard/${slugStore}`} className={linkClass} onClick={onClose}>
                         <PanelsTopLeft className="w-3.5 h-3.5" />
                         <span>Tableau de bord</span>
                     </NavLink>
 
-                    <NavLink to={`/dashboard/${slugStore}/commandes`} className={linkClass}>
+                    <NavLink to={`/dashboard/${slugStore}/commandes`} className={linkClass} onClick={onClose}>
                         <ShoppingCart className="w-3.5 h-3.5" />
                         <span>Commandes</span>
                     </NavLink>
 
-                    <NavLink to={`/dashboard/${slugStore}/produits`} className={linkClass}>
+                    <NavLink to={`/dashboard/${slugStore}/produits`} className={linkClass} onClick={onClose}>
                         <ShoppingBasket className="w-3.5 h-3.5" />
                         <span>Produits</span>
                     </NavLink>
-                    <NavLink to={`/dashboard/${slugStore}/boutique`} className={linkClass}>
+                    <NavLink to={`/dashboard/${slugStore}/boutique`} className={linkClass} onClick={onClose}>
                         <Store className="w-3.5 h-3.5" />
                         <span>Ma boutique</span>
                     </NavLink>
