@@ -3,7 +3,8 @@ import { useAuth } from "../../../hooks/useAuth";
 import { useLocation } from "react-router-dom";
 
 interface HeaderProps {
-    onMenuClick: () => void
+    onMenuClick: () => void,
+    style: React.CSSProperties
 }
 
 const pageTitles: Record<string, string> = {
@@ -12,7 +13,7 @@ const pageTitles: Record<string, string> = {
     "/produits": "Produits"
 };
 
-export function Header({ onMenuClick }: HeaderProps) {
+export function Header({ onMenuClick, style }: HeaderProps) {
     const { user } = useAuth();
     const firstletterFistName = user?.firstName.charAt(0).toUpperCase();
     const firstletterLastName = user?.lastName?.charAt(0).toUpperCase();
@@ -24,7 +25,9 @@ export function Header({ onMenuClick }: HeaderProps) {
 
     return (
         <>
-            <div className="flex justify-between items-center p-4 bg-white border-b border-border">
+            <div className="flex justify-between items-center p-4 bg-white border-b border-border"
+                style={style}
+            >
                 {/* LEFT */}
                 <div className="flex items-center gap-3">
                     <ChartNoAxesGantt className="w-6 h-6 lg:hidden" onClick={onMenuClick} />
