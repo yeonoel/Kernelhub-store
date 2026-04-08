@@ -296,8 +296,10 @@ function Hero() {
                     opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(20px)",
                     transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
                 }}>
-                    Vendez en ligne.<br />
-                    <span style={{ color: "rgba(255,255,255,0.35)" }}>Sans complexité.</span>
+                    Fini les messages sans fin. 🛍️
+
+                    <br />
+                    <span style={{ color: "rgba(255,255,255,0.35)" }}> Place aux commandes.</span>
                 </h1>
 
                 {/* Sub */}
@@ -307,7 +309,7 @@ function Hero() {
                     opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(20px)",
                     transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
                 }}>
-                    Créez votre boutique en ligne, gérez vos commandes et développez votre business — depuis votre téléphone ou votre ordinateur.
+                    Partagez juste votre lien. Vos clients choisissent, commandent et vous n'avez plus qu'à livrer.
                 </p>
 
                 {/* CTAs */}
