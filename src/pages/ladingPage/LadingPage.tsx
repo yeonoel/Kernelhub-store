@@ -272,7 +272,7 @@ function Hero() {
                 pointerEvents: "none",
             }} />
 
-            <div style={{ position: "relative", textAlign: "center", maxWidth: 850 }}>
+            <div style={{ position: "relative", textAlign: "center", maxWidth: 870 }}>
                 {/* Badge */}
                 <div style={{
                     display: "inline-flex", alignItems: "center", gap: 8,
@@ -296,7 +296,7 @@ function Hero() {
                     opacity: mounted ? 1 : 0, transform: mounted ? "translateY(0)" : "translateY(20px)",
                     transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
                 }}>
-                    Vendez sans messages.<br />
+                    Vendez sans messages 🛍️.<br />
                     <span style={{ color: "rgba(255,255,255,0.35)" }}>Juste des commandes.</span>
                 </h1>
 
