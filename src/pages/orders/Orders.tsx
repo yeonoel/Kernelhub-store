@@ -16,7 +16,6 @@ import { OrdersEmpty } from "@/components/features/Order/OrdersEmpty";
 import { formatDate, formatPrice } from "@/lib/utils";
 import { OrderStatus } from "@/types/order-status";
 import { canBeUpdate, canChangeTo } from "@/components/features/Order/order-status-managment";
-import type { OrderItem } from "@/types";
 
 export function Orders() {
     const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set());
@@ -144,6 +143,8 @@ export function Orders() {
     ) => {
         requestStatusChange(orderId, orderNumber, currentStatus, newStatus);
     };
+
+    console.log("orders", orders);
 
     // ========== RENDER ==========
     return (

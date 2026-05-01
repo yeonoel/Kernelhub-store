@@ -1,42 +1,42 @@
 import type { OrderStatus } from "./order-status";
 
 export interface PercentageChange {
-  percentage: number;
-  isPositive: boolean;
-  label: string;
+    percentage: number;
+    isPositive: boolean;
+    label: string;
 }
 
 export interface RevenueByMonth {
-  month: string;
-  revenue: number;
-  orders: number;
-  label?: string;
+    month: string;
+    revenue: number;
+    orders: number;
+    label?: string;
 }
 
 export interface TopProduct {
-  id: string;
-  name: string;
-  sales: number;
-  revenue: number;
-  image?: string;
-  category?: string;
+    id: string;
+    name: string;
+    sales: number;
+    revenue: number;
+    image?: string;
+    category?: string;
 }
 
 export interface RecentOrder {
-  id: string;
-  orderNumber: string;
-  customerName: string;
-  total: number;
-  status: string;
-  createdAt: string;
+    id: string;
+    orderNumber: string;
+    customerName: string;
+    total: number;
+    status: string;
+    createdAt: string;
 }
 
 export interface LowStockProduct {
-  id: string;
-  name: string;
-  currentStock: number;
-  lowStockThreshold: number;
-  image?: string;
+    id: string;
+    name: string;
+    currentStock: number;
+    lowStockThreshold: number;
+    image?: string;
 }
 
 /*export interface DashboardStats {
@@ -57,9 +57,9 @@ export interface LowStockProduct {
 } */
 
 export interface PercentageChangeDto {
-  percentage: number;      // +12.5 ou -5.3
-  isPositive: boolean;     // true si augmentation
-  label: string;           // "vs mois dernier"
+    percentage: number;
+    isPositive: boolean;
+    label: string;
 }
 
 
@@ -67,10 +67,13 @@ export interface PercentageChangeDto {
 export interface DashboardStatsDto {
     salesToday: number;
     salesThisMonth: number;
-    totalRevenue: number;
     pendingDeliveries: number;
     outOfStockProducts: number;
     revenueChange: PercentageChangeDto;
+    countOrders: number;
+    orderDelivered: number;
+    totalRevenue: number;
+    clientsNumber: number;
 }
 
 // Product Types
@@ -101,7 +104,7 @@ export interface Product {
     updatedAt: Date;
     images: ProductImage[];
     variants: ProductVariant[];
-    
+
     // Computed properties
     isOnSale: boolean;
     discountPercentage: number;
@@ -132,7 +135,7 @@ export interface ProductVariant {
     isDeleted: boolean;
     createdAt: Date;
     updatedAt: Date;
-    
+
     // Computed
     availabledQuantity: number;
 }

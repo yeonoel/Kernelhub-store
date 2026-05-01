@@ -43,6 +43,7 @@ export const formatDate = (date: string | Date): string => {
  * @returns Nombre formaté (ex: "1 234 567")
  */
 export const formatNumber = (num: number): string => {
+  if (num === undefined || num === null || isNaN(num)) return '0';
   return new Intl.NumberFormat('fr-FR').format(num);
 };
 

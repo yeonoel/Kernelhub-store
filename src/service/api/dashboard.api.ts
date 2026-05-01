@@ -5,7 +5,8 @@ import type { ProductStats } from '@/types/product.types';
 
 export const dashboardApi = {
   getOverviewStats: async (slugStore: string): Promise<DashboardStatsDto> => {
-    const { data } = await apiClient.get<DashboardStatsDto>(`/dashboard/${slugStore}/overview`);
+    const { data } = await apiClient.get<DashboardStatsDto>(`/dashboard/${slugStore}/products/stats`);
+    console.log("dashboardApi.getOverviewStats", data);
     return data;
   },
 

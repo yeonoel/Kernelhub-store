@@ -19,9 +19,8 @@ export const canBeUpdate = (current: OrderStatus) => {
  * @return {boolean} true if the order can be changed, false otherwise
  */
 export const canChangeTo = (current: OrderStatus, newStatus: OrderStatus) => {
-    if (current === OrderStatus.CONFIRMED_BY_CLIENT && newStatus === OrderStatus.APPROUVED_BY_SELLER) return true;
-    if (current === OrderStatus.APPROUVED_BY_SELLER && newStatus === OrderStatus.CANCELLED) return true;
-    if (current === OrderStatus.APPROUVED_BY_SELLER && newStatus === OrderStatus.DELIVERED) return true;
+    if (current === OrderStatus.CONFIRMED_BY_CLIENT && newStatus === OrderStatus.CANCELLED) return true;
+    if (current === OrderStatus.CONFIRMED_BY_CLIENT && newStatus === OrderStatus.DELIVERED) return true;
     if (current === newStatus) return true;
     return false;
 };

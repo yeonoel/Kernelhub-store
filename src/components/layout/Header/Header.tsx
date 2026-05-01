@@ -1,4 +1,4 @@
-import { ChartNoAxesGantt, } from "lucide-react";
+import { ChartNoAxesGantt, Menu, } from "lucide-react";
 import { useAuth } from "../../../hooks/useAuth";
 import { useLocation } from "react-router-dom";
 
@@ -29,8 +29,8 @@ export function Header({ onMenuClick, style }: HeaderProps) {
                 style={style}
             >
                 {/* LEFT */}
-                <div className="flex items-center gap-3">
-                    <ChartNoAxesGantt className="w-6 h-6 lg:hidden" onClick={onMenuClick} />
+                <div className="flex items-center gap-3 p-3">
+                    <Menu className="w-6 h-6 lg:hidden" onClick={onMenuClick} />
                     <span className="text-lg font-semibold">{title}</span>
                 </div>
 

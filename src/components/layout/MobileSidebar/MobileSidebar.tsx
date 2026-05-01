@@ -1,4 +1,4 @@
-import { ArrowLeftToLine, ChartColumn, LogOut, PanelsTopLeft, ShoppingBasket, ShoppingCart, SlidersHorizontal, Star, Store, Users } from "lucide-react";
+import { ArrowLeftToLine, LogOut, PanelsTopLeft, ShoppingBasket, ShoppingCart, Star, Store } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../../../hooks/useAuth";
 
