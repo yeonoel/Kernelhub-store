@@ -54,7 +54,7 @@ export default function Overview() {
             </div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
                 <StatCard
                     title="Commandes"
                     value={formatNumber(stats.countOrders)}

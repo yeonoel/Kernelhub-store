@@ -11,18 +11,18 @@ interface StatCardProps {
 export const StatCard = ({ title, value, icon, iconBgColor, iconLabel }: StatCardProps) => {
     return (
         <Card className="border-gray-200">
-            <CardContent className="px-6 py-2">
-                <div className="flex items-start justify-between">
+            <CardContent className="px-4 py-3">
+                <div className="flex items-center justify-between">
                     <div className="flex-1">
                         {iconLabel && (
-                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-1 block">
+                            <span className="text-xs font-semibold text-gray-400 uppercase tracking-widest block">
                                 {iconLabel}
                             </span>
                         )}
-                        <p className="text-2xl font-bold text-gray-900">{value}</p>
-                        <p className="text-sm font-medium text-gray-600 mb-2">{title}</p>
+                        <p className="text-xl font-bold text-gray-900 leading-tight">{value}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{title}</p>
                     </div>
-                    <div className={`w-8 h-8 rounded-lg ${iconBgColor} flex items-center justify-center`}>
+                    <div className={`w-7 h-7 rounded-md ${iconBgColor} flex items-center justify-center`}>
                         {icon}
                     </div>
                 </div>
